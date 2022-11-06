@@ -1,0 +1,55 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'java-gradle-plugin'
+}
+
+group = 'com.haulmont.ui.load.testing'
+version = '1.0'
+
+
+repositories {
+    mavenCentral()
+}
+
+def withoutBom = {
+    exclude group: 'org.apache.jmeter', module: 'bom'
+}
+
+dependencies {
+    implementation 'com.browserup:browserup-proxy-core:2.1.2'
+    implementation(group:'org.apache.jmeter', name: 'ApacheJMeter_java', version: "5.4.3", withoutBom)
+    implementation(group:'org.apache.jmeter', name: 'ApacheJMeter_http', version: "5.4.3", withoutBom)
+    implementation(group:'org.apache.jmeter', name: 'ApacheJMeter_core', version: "5.4.3", withoutBom)
+    implementation(group:'org.apache.jmeter', name: 'ApacheJMeter_components', version: "5.4.3", withoutBom)
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                groupId = "com.haulmont.ui.load.testing"
+                artifactId = "ui-load-test-plugin"
+                version = '1.0'
+
+                from components.java
+
+                pom {
+                    name = "pom.xml"
+                    description = 'Test Plugin Description'
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
