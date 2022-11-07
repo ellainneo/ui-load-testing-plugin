@@ -17,6 +17,7 @@ public class UILoadTestingExtension {
     // General Properties
     private String jmeterHome = "";
     private String pathDelimiter = System.getProperty("file.separator");
+    private String testPlanPath = "";
     private String testPlanFileName = "Project_Jmeter_Test_Plan.jmx";
 
     // Test Plan Properties
@@ -63,10 +64,6 @@ public class UILoadTestingExtension {
         return port;
     }
 
-    public void setNumThreads(int numThreads) {
-        this.numThreads = numThreads;
-    }
-
     public void setLoopsCount(Integer loopsCount) {
         this.loopsCount = loopsCount;
     }
@@ -106,6 +103,14 @@ public class UILoadTestingExtension {
 
     public String getPathDelimiter() {
         return pathDelimiter;
+    }
+
+    public void setTestPlanPath(String testPlanPath) {
+        this.testPlanPath = testPlanPath;
+    }
+
+    public String getTestPlanPath() {
+        return testPlanPath;
     }
 
     public void setTestPlanFileName(String testPlanFileName) {

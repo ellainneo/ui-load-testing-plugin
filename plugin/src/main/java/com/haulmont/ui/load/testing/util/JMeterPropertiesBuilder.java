@@ -18,6 +18,7 @@ public class JMeterPropertiesBuilder {
     private static final String JMETER_HOME = "jmeterHome";
     private static final String PATH_DELIMITER = "pathDelimiter";
     private static final String TEST_PLAN_FILE_NAME = "testPlanFileName";
+    private static final String TEST_PLAN_PATH = "testPlanPath";
     private static final String THREAD_GROUP_NAME = "threadGroupName";
     private static final String NUM_THREADS = "numThreads";
     private static final String RAMP_UP = "rampUp";
@@ -26,7 +27,6 @@ public class JMeterPropertiesBuilder {
     private static final String COOKIE_MANAGER_NAME = "cookieManagerName";
     private static final String IS_CLEAR_CACHE_AFTER_EACH_ITERATION = "isClearEachIteration";
     private static final String IS_CONTROLLED_BY_THREAD = "isControlledByThread";
-
 
     private Project project;
     private UILoadTestingExtension extension;
@@ -116,6 +116,14 @@ public class JMeterPropertiesBuilder {
             extension.setTestPlanFileName(testPlanFileName);
         }
         return extension.getTestPlanFileName();
+    }
+
+    public String getTestPlanPath() {
+        String testPlanPath = (String) properties.get(TEST_PLAN_PATH);
+        if (testPlanPath != null) {
+            extension.setTestPlanPath(testPlanPath);
+        }
+        return extension.getTestPlanPath();
     }
 
     public String getThreadGroupName() {
