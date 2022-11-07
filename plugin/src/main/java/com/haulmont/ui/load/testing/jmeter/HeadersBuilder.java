@@ -9,13 +9,15 @@ import java.util.List;
 
 public class HeadersBuilder {
 
+    private static final String COOKIE_HEADER_STRING = "Cookie";
+
     public HeaderManager getHeaderManager(HarRequest harRequest) {
         HeaderManager headerManager = new HeaderManager();
         List<HarHeader> harHeaders = harRequest.getHeaders();
 
         if (!harHeaders.isEmpty()) {
             harHeaders.forEach(harHeader -> {
-                if (!harHeader.getName().equalsIgnoreCase("Cookie")) {
+                if (!harHeader.getName().equalsIgnoreCase(COOKIE_HEADER_STRING)) {
                     headerManager.add(buildHeader(harHeader));
                 }
             });
