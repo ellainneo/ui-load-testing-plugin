@@ -12,6 +12,9 @@ import java.util.List;
 
 public class ArgumentsBuilder {
 
+    private static final String CONTENT_TYPE_PARAM = "Content-Type";
+    private static final String PROTOCOL_MATCH_STRING = "http";
+
     public Arguments getAllRequestParameters(HarRequest harRequest) {
         Arguments arguments = new Arguments();
         if (harRequest != null) {
@@ -107,9 +110,9 @@ public class ArgumentsBuilder {
                                             HTTPArgument jmeterRequestArgument) {
         if (harQueryParameter != null) {
             if ((harQueryParameter.getName() != null &&
-            harQueryParameter.getName().equalsIgnoreCase("Content-Type")) ||
+            harQueryParameter.getName().equalsIgnoreCase(CONTENT_TYPE_PARAM)) ||
             (harQueryParameter.getValue() != null &&
-                    harQueryParameter.getValue().startsWith("http"))) {
+                    harQueryParameter.getValue().startsWith(PROTOCOL_MATCH_STRING))) {
                 jmeterRequestArgument.setAlwaysEncoded(true);
             }
         }
@@ -119,9 +122,9 @@ public class ArgumentsBuilder {
                                                      HTTPArgument httpSamplerParameter) {
         if (harPostDataParameter != null) {
             if ((harPostDataParameter.getName() != null &&
-                    harPostDataParameter.getName().equalsIgnoreCase("Content-Type")) ||
+                    harPostDataParameter.getName().equalsIgnoreCase(CONTENT_TYPE_PARAM)) ||
                     (harPostDataParameter.getValue() != null &&
-                            harPostDataParameter.getValue().startsWith("http"))) {
+                            harPostDataParameter.getValue().startsWith(PROTOCOL_MATCH_STRING))) {
                 httpSamplerParameter.setAlwaysEncoded(true);
             }
         }
