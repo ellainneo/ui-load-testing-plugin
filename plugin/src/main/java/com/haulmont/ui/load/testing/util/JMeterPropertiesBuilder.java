@@ -19,6 +19,8 @@ public class JMeterPropertiesBuilder {
     private static final String PATH_DELIMITER = "pathDelimiter";
     private static final String TEST_PLAN_FILE_NAME = "testPlanFileName";
     private static final String TEST_PLAN_PATH = "testPlanPath";
+    private static final String HAR_PATH = "harPath";
+    private static final String HAR_FILE_NAME = "harFileName";
     private static final String THREAD_GROUP_NAME = "threadGroupName";
     private static final String NUM_THREADS = "numThreads";
     private static final String RAMP_UP = "rampUp";
@@ -126,6 +128,22 @@ public class JMeterPropertiesBuilder {
         return extension.getTestPlanPath();
     }
 
+    public String getHarPath() {
+        String harFilePath = (String) properties.get(HAR_PATH);
+        if (harFilePath != null) {
+            extension.setHarPath(harFilePath);
+        }
+        return extension.getHarPath();
+    }
+
+    public String getHarFileName() {
+        String harFileName = (String) properties.get(HAR_FILE_NAME);
+        if (harFileName != null) {
+            extension.setHarFileName(harFileName);
+        }
+        return extension.getHarFileName();
+    }
+
     public String getThreadGroupName() {
         String threadGroupName = (String) properties.get(THREAD_GROUP_NAME);
         if (threadGroupName != null) {
@@ -189,6 +207,4 @@ public class JMeterPropertiesBuilder {
         }
         return extension.getControlledByThread();
     }
-
-
 }

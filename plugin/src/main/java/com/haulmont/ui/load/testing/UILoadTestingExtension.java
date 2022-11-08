@@ -19,6 +19,8 @@ public class UILoadTestingExtension {
     private String pathDelimiter = System.getProperty("file.separator");
     private String testPlanPath = "";
     private String testPlanFileName = "Project_Jmeter_Test_Plan.jmx";
+    private String harPath = "";
+    private String harFileName = "HarLog.har";
 
     // Test Plan Properties
     private String threadGroupName = "Main Thread Group";
@@ -119,6 +121,22 @@ public class UILoadTestingExtension {
 
     public String getTestPlanFileName() {
         return testPlanFileName;
+    }
+
+    public void setHarPath(String harPath) {
+        this.harPath = harPath;
+    }
+
+    public String getHarPath() {
+        return harPath;
+    }
+
+    public void setHarFileName(String harFileName) {
+        this.harFileName = harFileName;
+    }
+
+    public String getHarFileName() {
+        return harFileName;
     }
 
     public void setThreadGroupName(String threadGroupName) {

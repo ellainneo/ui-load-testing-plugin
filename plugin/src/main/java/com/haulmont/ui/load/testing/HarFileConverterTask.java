@@ -18,13 +18,11 @@ public class HarFileConverterTask extends DefaultTask {
         UILoadTestingExtension jmeterExtension = project.getExtensions().findByType(UILoadTestingExtension.class);
         JMeterPropertiesBuilder jMeterPropertiesBuilder = new JMeterPropertiesBuilder(project, jmeterExtension);
 
-        //ToDo Add har file path property
-        Har har = HarHelper.readHarLogFromFile("");
+        Har har = HarHelper.readHarLogFromFile(jMeterPropertiesBuilder.getHarPath() +
+                jMeterPropertiesBuilder.getPathDelimiter() + jMeterPropertiesBuilder.getHarFileName());
 
-        TestPlanBuilder testPlanBuilder = new TestPlanBuilder();
-        ListedHashTree testPlan = testPlanBuilder.getTestPlan(har);
-        testPlanBuilder.saveTestPlanToFile(testPlan);
-
-
+        TestPlanBuilder testPlanBuilder = new TestPlanBuilder(project, jMeterPropertiesBuilder);
+        /*ListedHashTree testPlan = testPlanBuilder.getTestPlan(har);
+        testPlanBuilder.saveTestPlanToFile(testPlan);*/
     }
 }

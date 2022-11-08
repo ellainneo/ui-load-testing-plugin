@@ -37,7 +37,12 @@ import java.util.List;
 public class TestPlanBuilder {
 
     Project project;
-    JMeterPropertiesBuilder propertiesBuilder = createJMeterPropertiesBuilder(project);
+    JMeterPropertiesBuilder propertiesBuilder;
+
+    public TestPlanBuilder(Project project, JMeterPropertiesBuilder propertiesBuilder) {
+        this.project = project;
+        this.propertiesBuilder = propertiesBuilder;
+    }
 
     public ListedHashTree getTestPlan(Har har) {
 
