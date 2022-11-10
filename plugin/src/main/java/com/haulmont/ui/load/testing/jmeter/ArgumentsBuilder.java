@@ -14,42 +14,17 @@ public class ArgumentsBuilder {
 
     private static final String CONTENT_TYPE_PARAM = "Content-Type";
     private static final String PROTOCOL_MATCH_STRING = "http";
-
-    public Arguments getAllRequestParameters(HarRequest harRequest) {
-        Arguments arguments = new Arguments();
-        if (harRequest != null) {
-            List<HarQueryParam> harQueryParams = harRequest.getQueryString();
-            if (!harQueryParams.isEmpty()) {
-                harQueryParams.forEach(harQueryParam -> {
-                    HTTPArgument jmeterRequestArgument = createRequestParameter(harQueryParam);
-                    arguments.addArgument(jmeterRequestArgument);
-                });
-            }
-        }
-        return arguments;
-    }
-
-    public HTTPArgument getBodyData(HTTPSampler jmeterHttpSampler, HarPostData harPostData) {
-        HTTPArgument httpRequestArgument = new HTTPArgument();
-        if (harPostData != null) {
-            jmeterHttpSampler.setPostBodyRaw(true);
-            httpRequestArgument.setUseEquals(true);
-            httpRequestArgument.setContentType(harPostData.getMimeType());
-
-            httpRequestArgument.setValue(harPostData.getText());
-        }
-        return httpRequestArgument;
-    }
+    private static final String CONTENT_ENCODING = "UTF-8";
 
     public Arguments getHttpSamplerArguments(HTTPSampler jmeterHttpSampler, HarRequest harRequest) {
         Arguments requestArguments = new Arguments();
         HTTPArgument httpArgument = new HTTPArgument();
-        HarPostData harPostData = harRequest.getPostData();
 
+        HarPostData harPostData = harRequest.getPostData();
         if (harPostData != null) {
             if (!harPostData.getText().isEmpty()) {
                 jmeterHttpSampler.setPostBodyRaw(true);
-                jmeterHttpSampler.setContentEncoding("UTF-8");
+                jmeterHttpSampler.setContentEncoding(CONTENT_ENCODING);
                 httpArgument.setUseEquals(true);
                 httpArgument.setContentType(harPostData.getMimeType());
                 httpArgument.setValue(harPostData.getText());
