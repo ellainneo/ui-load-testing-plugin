@@ -1,7 +1,6 @@
 package com.haulmont.ui.load.testing.jmeter;
 
 import com.browserup.harreader.model.HarRequest;
-import com.haulmont.ui.load.testing.UILoadTestingExtension;
 import com.haulmont.ui.load.testing.util.JMeterPropertiesBuilder;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.config.gui.ArgumentsPanel;
@@ -10,12 +9,14 @@ import org.apache.jmeter.protocol.http.gui.HeaderPanel;
 import org.apache.jmeter.protocol.http.sampler.HTTPSampler;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.HashTree;
-import org.gradle.api.Project;
 
 public class HTTPSamplerBuilder {
 
-    Project project;
-    JMeterPropertiesBuilder jMeterPropertiesBuilder = getJmeterPropertiesBuilder(project);
+    JMeterPropertiesBuilder jMeterPropertiesBuilder;
+
+    public HTTPSamplerBuilder(JMeterPropertiesBuilder jMeterPropertiesBuilder) {
+        this.jMeterPropertiesBuilder = jMeterPropertiesBuilder;
+    }
 
     public HTTPSampler getHTTPSampler(HarRequest harRequest, String caseName, int index) {
         HTTPSampler httpSampler = new HTTPSampler();
@@ -41,12 +42,6 @@ public class HTTPSamplerBuilder {
             httpSamplerHashTree.add(httpSampler, addHeaders(harRequest));
         }
         return httpSamplerHashTree;
-    }
-
-    private JMeterPropertiesBuilder getJmeterPropertiesBuilder(Project project) {
-        UILoadTestingExtension jmeterExtension = project.getExtensions()
-                .findByType(UILoadTestingExtension.class);
-        return new JMeterPropertiesBuilder(project, jmeterExtension);
     }
 
     private String getStandardProtocol() {
@@ -98,7 +93,8 @@ public class HTTPSamplerBuilder {
     private void setSamplerName(HTTPSampler httpSampler, HarRequest harRequest, String caseName, int index) {
         if (harRequest.getUrl() != null && harRequest.getMethod() != null) {
             String fullURLInfo = getFullUrlInfo(harRequest);
-            String samplerFullName = "(" + harRequest.getMethod().name() + ") " + caseName + " - " + harRequest.getUrl().substring(fullURLInfo.length() + 1);
+            String samplerFullName = "(" + harRequest.getMethod().name() + ") " + caseName + " - "
+                    + harRequest.getUrl().substring(fullURLInfo.length() + 1);
             if (samplerFullName.length() > 55) {
                 httpSampler.setName(samplerFullName.substring(0, 55)  + "...-" + index) ;
             } else {

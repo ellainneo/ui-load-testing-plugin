@@ -6,7 +6,7 @@ public class UILoadTestingExtension {
     // Sampler Properties
     private String protocol = "http";
     private String wsProtocol = "ws";
-    private String host = "127.0.0.1";
+    private String host = "localhost";
     private String port = "8080";
 
     // Loop Properties
@@ -18,7 +18,7 @@ public class UILoadTestingExtension {
     private String jmeterHome = "";
     private String pathDelimiter = System.getProperty("file.separator");
     private String testPlanPath = "";
-    private String testPlanFileName = "Project_Jmeter_Test_Plan.jmx";
+    private String testPlanFileName = "Jmeter_Test_Plan.jmx";
     private String harPath = "";
     private String harFileName = "HarLog.har";
 

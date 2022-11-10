@@ -3,7 +3,6 @@ package com.haulmont.ui.load.testing.jmeter;
 import com.browserup.harreader.model.Har;
 import com.browserup.harreader.model.HarEntry;
 import com.browserup.harreader.model.HarPage;
-import com.haulmont.ui.load.testing.UILoadTestingExtension;
 import com.haulmont.ui.load.testing.util.HarHelper;
 import com.haulmont.ui.load.testing.util.JMeterPropertiesBuilder;
 import org.apache.jmeter.config.Arguments;
@@ -26,7 +25,6 @@ import org.apache.jmeter.threads.gui.ThreadGroupGui;
 import org.apache.jmeter.util.JMeterUtils;
 import org.apache.jorphan.collections.HashTree;
 import org.apache.jorphan.collections.ListedHashTree;
-import org.gradle.api.Project;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,18 +34,15 @@ import java.util.List;
 
 public class TestPlanBuilder {
 
-    Project project;
     JMeterPropertiesBuilder propertiesBuilder;
 
-    public TestPlanBuilder(Project project, JMeterPropertiesBuilder propertiesBuilder) {
-        this.project = project;
+    public TestPlanBuilder(JMeterPropertiesBuilder propertiesBuilder) {
         this.propertiesBuilder = propertiesBuilder;
     }
 
     public ListedHashTree getTestPlan(Har har) {
 
         File jmeterHome = new File(propertiesBuilder.getJmeterHome());
-
         if (!jmeterHome.exists()) {
             throw new IllegalStateException("JMeter home cannot be found");
         }
@@ -62,7 +57,7 @@ public class TestPlanBuilder {
         JMeterUtils.initLocale();
 
         ListedHashTree testPlanTree = new ListedHashTree();
-        HTTPSamplerBuilder samplerBuilder = new HTTPSamplerBuilder();
+        HTTPSamplerBuilder samplerBuilder = new HTTPSamplerBuilder(propertiesBuilder);
 
         TestPlan testPlan = createTestPlan();
         testPlanTree.add(testPlan);
@@ -108,16 +103,11 @@ public class TestPlanBuilder {
 
     public void saveTestPlanToFile(ListedHashTree testPlanTree){
         try {
-            SaveService.saveTree(testPlanTree, new FileOutputStream(propertiesBuilder.getJmeterHome() +
+            SaveService.saveTree(testPlanTree, new FileOutputStream(propertiesBuilder.getTestPlanPath() +
                     propertiesBuilder.getPathDelimiter() + propertiesBuilder.getTestPlanFileName()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private JMeterPropertiesBuilder createJMeterPropertiesBuilder(Project project) {
-        UILoadTestingExtension extension = project.getExtensions().findByType(UILoadTestingExtension.class);
-        return new JMeterPropertiesBuilder(project, extension);
     }
 
     private Integer getLoopsCount() {
@@ -153,6 +143,7 @@ public class TestPlanBuilder {
 
     private ThreadGroup createThreadGroup() {
         ThreadGroup threadGroup = new ThreadGroup();
+        threadGroup.setName(propertiesBuilder.getThreadGroupName());
         threadGroup.setNumThreads(propertiesBuilder.getNumThreads());
         threadGroup.setRampUp(propertiesBuilder.getRampUp());
         threadGroup.setIsSameUserOnNextIteration(propertiesBuilder.getIsSameUserOnNextIteration());

@@ -21,8 +21,8 @@ public class HarFileConverterTask extends DefaultTask {
         Har har = HarHelper.readHarLogFromFile(jMeterPropertiesBuilder.getHarPath() +
                 jMeterPropertiesBuilder.getPathDelimiter() + jMeterPropertiesBuilder.getHarFileName());
 
-        TestPlanBuilder testPlanBuilder = new TestPlanBuilder(project, jMeterPropertiesBuilder);
-        /*ListedHashTree testPlan = testPlanBuilder.getTestPlan(har);
-        testPlanBuilder.saveTestPlanToFile(testPlan);*/
+        TestPlanBuilder testPlanBuilder = new TestPlanBuilder(jMeterPropertiesBuilder);
+        ListedHashTree testPlan = testPlanBuilder.getTestPlan(har);
+        testPlanBuilder.saveTestPlanToFile(testPlan);
     }
 }
