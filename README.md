@@ -65,15 +65,47 @@ apply plugin: 'ui-load-testing'
 ![image](https://user-images.githubusercontent.com/114524355/201520170-fb996d1c-72d7-4ec3-ab21-2fb743bd691d.png)
 
 
-### Пример вызова задачи 
+### Формат вызова задачи конвертации HAR-файла в JMeter Тест-план
 
-В терминале IntelliJ IDEA или в CMD перейти в корневую папку проекта, затем выполнить следующую команду:
+Задача convertHarFileToJmeterScript выполняет конвертацию HAR-файла, полученного в результате ручного или автоматического выполнения тестов в JMeter Тест-план (файл формата .jmx). Полученный JMeter Тест-план может быть успешно открыт в JMeter UI для просмотра либо последующего редактирования.
+
+Вызов задачи конвертации осуществляется через cmd или терминал IDE путем выполнения команды следующего формата
 
 ```
 gradle convertHarFileToJmeterScript [-Pparam1 -Pparam2 ... -PparamN]
 ```
 
-### Инициализация значений параметров через Свойства в командной строке
+Пример использования с указанием значений параметров:
+
+```
+gradle convertHarFileToJmeterScript -PharPath="C:\PluginTest\HarFile" -PharFileName="TestExec.har" -PtestPlanPath="C:\PluginTest\TestPlan" -PtestPlanFileName="CustomLoadTestPlan.jmx" -PjmeterHome="C:\Jmeter\apache-jmeter-5.4.1" -Phost="XXX.XX.XX.XX"
+
+```
+
+Также свойства можно задать в файле build.gradle вашего проекта, использующего плагин, в следующем формате:
+
+```
+jmeterExtensions {
+    host = 'XXX.X.XX.XX'
+    jmeterHome = 'C:\\Jmeter\\apache-jmeter-5.4.1'
+    harPath = 'C:\\PluginTest\\HarFile'
+    harFileName = 'TestExec.har'
+    testPlanPath = 'C:\\PluginTest\\TestPlan'
+    testPlanFileName = 'Load TPL.jmx'
+}
+```
+После этого задачу можно вызвать без параметров через терминал IDE:
+
+```
+ gradle convertHarFileToJmeterScript
+```
+
+Также можно осуществить выполнение задачи двойным нажатием по соответствующему элементу в Gradle-панели:
+
+![image](https://user-images.githubusercontent.com/114524355/201529108-327615c3-2b7f-4cea-876f-32c7b10d14db.png)
+
+
+### Доступные свойства плагина
 #### Обязательные параметры
 В данной таблице представлены параметры, в которых обязательно должны быть установлены _актуальные_ значения. В противном случае конвертация HAR-файла в JMeter Тест-план будет выполнена некорректно. 
 
@@ -117,5 +149,6 @@ gradle convertHarFileToJmeterScript [-Pparam1 -Pparam2 ... -PparamN]
 | numThreads | Поле **"Num of Threads (users)"** на экране **"Thread Group"** | -PnumThreads=10 | 2 |
 | rampUp | Поле **"Ramp-up period (seconds)"** на экране **"Thread Group"** | -PrampUp=15 | 0 |
 | isSameUserOnNextIteration | Чекбокс **"Same user on each iteration"** на экране **"Thread Group"** | -PisSameUserOnNextIteration=true | false |
+
 
 
