@@ -8,6 +8,7 @@ public class UILoadTestingPlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
         project.getTasks().create("convertHarFileToJmeterScript", HarFileConverterTask.class);
+        project.getTasks().create("runUITests", RunUITestsTask.class);
         project.getExtensions().create("jmeterExtensions", UILoadTestingExtension.class);
     }
 }
