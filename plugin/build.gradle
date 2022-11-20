@@ -17,13 +17,16 @@ def withoutBom = {
 }
 
 dependencies {
+    implementation 'org.testng:testng:7.1.0'
+    implementation 'io.netty:netty-common:4.1.77.Final'
+    implementation 'com.codeborne:selenide:5.20.1'
     implementation 'com.browserup:browserup-proxy-core:2.1.2'
     implementation(group:'org.apache.jmeter', name: 'ApacheJMeter_java', version: "5.4.3", withoutBom)
     implementation(group:'org.apache.jmeter', name: 'ApacheJMeter_http', version: "5.4.3", withoutBom)
     implementation(group:'org.apache.jmeter', name: 'ApacheJMeter_core', version: "5.4.3", withoutBom)
     implementation(group:'org.apache.jmeter', name: 'ApacheJMeter_components', version: "5.4.3", withoutBom)
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.testng:testng:7.1.0'
 }
 
 project.afterEvaluate {
