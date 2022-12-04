@@ -3,6 +3,17 @@ package com.haulmont.ui.load.testing;
 @SuppressWarnings("ExtensionProperties")
 public class UILoadTestingExtension {
 
+    // Selenide Configurations
+    private String selenideBrowser = "chrome";
+    private String webdriverPath = "";
+    private String isDriverManagerEnabled = "false";
+    private String selenideTimeout = "30000";
+    private String selenideBrowserVerison = "";
+    private String isSelenideHeadless = "false";
+    private String isSelenideProxyEnabled = "true";
+    private String selenideProxyHost = "";
+    private String selenideProxyPort = "0";
+
     // Sampler Properties
     private String protocol = "http";
     private String wsProtocol = "ws";
@@ -33,6 +44,79 @@ public class UILoadTestingExtension {
     private String cookieManagerName = "Cookie Manager";
     private Boolean isClearEachIteration = true;
     private Boolean isControlledByThread = false;
+
+
+    public void setSelenideBrowser(String selenideBrowser) {
+        this.selenideBrowser = selenideBrowser;
+    }
+
+    public String getSelenideBrowser() {
+        return selenideBrowser;
+    }
+
+    public void setWebdriverPath(String webdriverPath) {
+        this.webdriverPath = webdriverPath;
+    }
+
+    public String getWebdriverPath() {
+        return webdriverPath;
+    }
+
+    public void setIsDriverManagerEnabled(String isDriverManagerEnabled) {
+        this.isDriverManagerEnabled = isDriverManagerEnabled;
+    }
+
+    public String getIsDriverManagerEnabled() {
+        return isDriverManagerEnabled;
+    }
+
+    public void setSelenideTimeout(String selenideTimeout) {
+        this.selenideTimeout = selenideTimeout;
+    }
+
+    public String getSelenideTimeout() {
+        return selenideTimeout;
+    }
+
+    public void setSelenideBrowserVersion(String selenideBrowserVersion) {
+        this.selenideBrowserVerison = selenideBrowserVersion;
+    }
+
+    public String getSelenideBrowserVersion() {
+        return selenideBrowserVerison;
+    }
+
+    public void setIsSelenideHeadless(String isSelenideHeadless) {
+        this.isSelenideHeadless = isSelenideHeadless;
+    }
+
+    public String getIsSelenideHeadless() {
+        return isSelenideHeadless;
+    }
+
+    public void setIsSelenideProxyEnabled(String isSelenideProxyEnabled) {
+        this.isSelenideProxyEnabled = isSelenideProxyEnabled;
+    }
+
+    public String getIsSelenideProxyEnabled() {
+        return isSelenideProxyEnabled;
+    }
+
+    public void setSelenideProxyHost(String selenideProxyHost) {
+        this.selenideProxyHost = selenideProxyHost;
+    }
+
+    public String getSelenideProxyHost() {
+        return selenideProxyHost;
+    }
+
+    public void setSelenideProxyPort(String selenideProxyPort) {
+        this.selenideProxyPort = selenideProxyPort;
+    }
+
+    public String getSelenideProxyPort() {
+        return selenideProxyPort;
+    }
 
     public void setProtocol(String protocol) {
         this.protocol = protocol;
